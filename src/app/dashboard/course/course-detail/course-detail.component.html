@@ -1,0 +1,9 @@
+<p>
+  Teacher Section
+</p>
+<ul>
+  <li *ngFor="let teaching of teachings">
+    {{ teaching.Teacher.User.firstname }}<a routerLink="/dashboard/sections/{{teaching.Section.id}}"> {{ teaching.Section.number }}</a>
+  </li>
+</ul>
+

@@ -1,0 +1,18 @@
+<p>
+  {{student.User.firstname}}
+</p>
+<div *ngIf="section==null">
+  Add To Class:
+  <form class="form-signin" (ngSubmit)="assignSection(sections[x.selectedIndex].id)">
+    <select name="campus" [(ngModel)]="selectedCampus">
+      <option *ngFor="let campus of campuses" [ngValue]="campus"> {{campus.address}} </option>
+    </select>
+    <select name="class" [(ngModel)]="selectedClass">
+      <option *ngFor="let cls of filterClasses()" [ngValue]="cls"> {{cls.name}} </option>
+    </select>
+    <select #x name="sections">
+      <option  *ngFor="let sec of filterSections()" [ngValue]="sec"> {{sec.number}} </option>
+    </select>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+  </form>
+</div>

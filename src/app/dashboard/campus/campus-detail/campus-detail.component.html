@@ -1,0 +1,19 @@
+
+<p>
+Classes
+</p>
+<ul>
+  <li *ngFor="let clss of classes">
+    <a routerLink ="/dashboard/classes/{{clss.id}}">{{clss.name}}</a> 
+  </li>
+</ul>
+<form class="form-signin" (ngSubmit)="addClass(name.value, fee.value)">
+  <h2 class="form-signin-heading">Add Class</h2>
+  <label for="inputUsername" class="sr-only">Name</label>
+  <input #name name="name" id="inputUsername" class="form-control" placeholder="Name" required="" autofocus="" type="text">
+ 
+  <label for="inputUsername" class="sr-only">Fee</label>
+  <input #fee name="fee" id="inputFee" class="form-control" placeholder="Fee" required="" autofocus="" type="text">
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</form>
+{{error}}

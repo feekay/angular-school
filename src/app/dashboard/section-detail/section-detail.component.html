@@ -1,0 +1,35 @@
+<p>
+  Activities!
+</p>
+<li *ngFor="let activity of activities; let idx = index">
+  <a routerLink="/dashboard/activities/{{activity.id}}">Activity #{{idx}}: {{ activity.description }}</a>
+</li>
+<div *ngIf="permission">
+<p>All Courses</p>
+<li *ngFor="let teaching of teachings">
+  <a routerLink="/dashboard/courses/{{teaching.Course.id}}">{{ teaching.Course.name }}</a> <a routerLink="/dashboard/teachers/{{teaching.Teacher.id}}">{{teaching.Teacher.User.firstname}} </a>
+</li>
+
+<p>Unassigned Courses</p>
+<li *ngFor="let course of filterCommon()">
+  <a routerLink="/dashboard/courses/{{course.id}}">{{ course.name }}</a> <span>Assign:</span>
+<form class="form-signin" (ngSubmit)="assignTeacher(teachers[x.selectedIndex].id, course.id)">
+  <select name = "teacher" #x >
+      <option *ngFor="let c of teachers" [ngValue]="c"> {{c.User.firstname}} </option>
+    </select>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</form>
+</li>
+
+</div>
+
+<form class="form-signin" (ngSubmit)="addActivity(date.value, desc.value)">
+  <h2 class="form-signin-heading">Add Activity</h2>
+  <label for="inputUsername" class="sr-only">Date</label>
+  <input #date name="date" id="inputUsername" class="form-control" placeholder="Name" required="" autofocus="" type="datetime">
+
+  <label for="inputUsername" class="sr-only">Description</label>
+  <input #desc name="desc" id="inputFee" class="form-control" placeholder="Description" required="" autofocus="" type="text">
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</form>
+{{error}}

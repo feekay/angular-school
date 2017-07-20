@@ -1,0 +1,25 @@
+<p>
+  Teachers
+</p>
+<ul>
+  <li *ngFor="let teacher of teachers">
+    <a routerLink="/dashboard/teachers/{{ teacher.id }}">{{teacher.User.firstname}}</a>
+  </li>
+</ul>
+
+<p>
+  Students
+</p>
+<ul>
+  <li *ngFor="let student of students">
+    <a routerLink="/dashboard/students/{{ student.id }}">{{student.User.firstname}}</a>
+  </li>
+</ul>
+<p>
+  Staffs
+</p>
+<ul>
+  <li *ngFor="let staff of staffs">
+    <a routerLink="/dashboard/staffs/{{ staff.id }}">{{staff.User.firstname}}</a>
+  </li>
+</ul>

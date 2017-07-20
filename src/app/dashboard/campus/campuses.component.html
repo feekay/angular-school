@@ -1,0 +1,16 @@
+<ul>
+
+  <li *ngFor="let campus of campuses">
+    <a routerLink ="/dashboard/campuses/{{campus.id}}">{{campus.name}}</a>
+  </li>
+</ul>
+<form class="form-signin" (ngSubmit)="register(name.value, add.value)">
+  <h2 class="form-signin-heading">Add Campus</h2>
+  <label for="inputUsername" class="sr-only">Name</label>
+  <input #name name="name" id="inputUsername" class="form-control" placeholder="Name" required="" autofocus="" type="text">
+ 
+  <label for="inputUsername" class="sr-only">Address</label>
+  <input #add name="add" id="inputFee" class="form-control" placeholder="Address" required="" autofocus="" type="text">
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</form>
+{{error}}

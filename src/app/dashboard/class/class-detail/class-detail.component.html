@@ -1,0 +1,33 @@
+<p>
+  Sections
+</p>
+<ul>
+  <li *ngFor="let section of sections">
+    <a routerLink="/dashboard/sections/{{section.id}}">Section No: {{section.number}}</a>
+  </li>
+</ul>
+<br>
+<form class="form-signin" (ngSubmit)="registerSection(name.value)">
+  <h2 class="form-signin-heading">Add Section</h2>
+  <label for="inputUsername" class="sr-only">Number</label>
+  <input #name name="name" id="inputUsername" class="form-control" placeholder="Name" required="" autofocus="" type="text">
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</form>
+
+<p>
+  Courses
+</p>
+<ul>
+  <li *ngFor="let course of courses; let ind=index">
+    Course# {{ind+1}}: {{course.name}}
+  </li>
+</ul>
+
+<p>Add Course</p>
+<form class="form-signin" (ngSubmit)="addCourse(selectedCourse.id)">
+  <select name = "course" [(ngModel)]="selectedCourse">
+      <option *ngFor="let c of filterCommon()" [ngValue]="c"> {{c.name}} </option>
+    </select>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</form>
