@@ -5,6 +5,8 @@ import { Section } from "app/models/section";
 import { SectionService } from "app/services/section.service";
 import { AuthService } from "app/services/auth.service";
 import { Course } from "app/models/course";
+import { Activity } from "app/models/activity";
+import { Teaching } from "app/models/teaching";
 
 @Component({
   selector: 'app-student-view',
@@ -16,18 +18,26 @@ export class StudentViewComponent implements OnInit {
 
   student: Student;
   section: Section;
-  courses: Course[];
+  courses: Teaching[];
+  activities: Activity[];
   constructor(private authService: AuthService, private service: StudentService, private sectionService: SectionService) {
     service.getStudent(this.authService.getId()).subscribe(
-      student => { this.student = student; this.section = student.Section },
+      student => {
+      this.student = student; this.section = student.Section;
+        if (this.section) {
+          sectionService.getTeachings(this.section.id).subscribe(
+            courses => {this.courses = courses;console.log(this.courses)},
+            error => this.errorMessage = error
+          );
+          sectionService.getActivities(this.section.id).subscribe(
+            activities => this.activities = activities,
+            error => this.errorMessage = error
+          );
+        }
+      },
       error => this.errorMessage = error
     );
-    if (this.section) {
-      sectionService.getCourses(this.section.id).subscribe(
-        courses => this.courses = courses,
-        error => this.errorMessage = error
-      );
-    }
+
   }
 
   ngOnInit() {

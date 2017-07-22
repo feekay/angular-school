@@ -9,6 +9,8 @@ import { SectionService } from "app/services/section.service";
 import { ActivatedRoute } from "@angular/router";
 import { CampusService } from "app/services/campus.service";
 import { ClassService } from "app/services/class.service";
+import { Course } from "app/models/course";
+import { Activity } from "app/models/activity";
 
 @Component({
   selector: 'app-student',
@@ -26,6 +28,9 @@ export class StudentComponent implements OnInit {
 
   selectedClass: Class;
   selectedCampus: Campus;
+
+  courses:Course[];
+  activities:Activity[];
   constructor(
     private campusService: CampusService,
     private classService: ClassService,
@@ -39,6 +44,14 @@ export class StudentComponent implements OnInit {
     this.student = this.route.snapshot.data['student'];
     if (this.route.snapshot.data['student'].SectionId) {
       this.section = this.route.snapshot.data['student'].Section;
+      this.sectionService.getTeachings(this.section.id).subscribe(
+            courses => {this.courses = courses;console.log(this.courses)},
+            error => this.errorMessage = error
+          );
+          this.sectionService.getActivities(this.section.id).subscribe(
+            activities => this.activities = activities,
+            error => this.errorMessage = error
+          );
     }
     else {
       this.section = null;

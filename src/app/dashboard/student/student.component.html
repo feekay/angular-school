@@ -7,12 +7,81 @@
     <select name="campus" class="form-control" [(ngModel)]="selectedCampus">
       <option *ngFor="let campus of campuses" [ngValue]="campus"> {{campus.address}} </option>
     </select>
-    <select name="class" class="form-control"  [(ngModel)]="selectedClass">
+    <select name="class" class="form-control" [(ngModel)]="selectedClass">
       <option *ngFor="let cls of filterClasses()" [ngValue]="cls"> {{cls.name}} </option>
     </select>
-    <select #x name="sections" class="form-control" >
+    <select #x name="sections" class="form-control">
       <option  *ngFor="let sec of filterSections()" [ngValue]="sec"> {{sec.number}} </option>
     </select>
     <button class="btn btn-primary" type="submit">Submit</button>
   </form>
 </div>
+
+<div *ngIf="section">
+  <!--<div>
+    <p>{{section.number}}{{section.id}}</p>
+  </div>-->
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <i class="fa fa-clock-o fa-fw"></i> Activities
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+      <ul class="timeline">
+        <li *ngFor="let activity of activities">
+          <div class="timeline-badge">
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">{{activity.date | date: 'dd/MM/yyyy'}}</h4>
+              <p><small class="text-muted"></small>
+              </p>
+            </div>
+            <div class="timeline-body">
+              <p>{{activity.description}}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- /.panel-body -->
+  </div>
+  <!-- /.panel -->
+
+  <div class="card mb-3">
+    <div class="card-header">
+
+      <i class="fa fa-table"></i> Information
+
+      <h4>Courses</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Section</th>
+              <th>Timing</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Course</th>
+              <th>Teacher</th>
+              <th>Timing</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr *ngFor="let course of courses">
+              <td> {{course.Course.name}} </td>
+              <td> {{course.Teacher.User.firstname}} </td>
+              <td>09:00 pm</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  {{errorMessage}}
