@@ -56,22 +56,23 @@ export class SectionDetailComponent implements OnInit {
       this.sectionService.getActivities(this.id).subscribe(
         activities => this.activities = activities,
         error => this.errorMessage = <any>error);
+      this.myReset();
     }.bind(this)).catch(function (err) {
       this.errorMessage = err.json().message;
-    })
+    }.bind(this));
   }
 
   assignTeacher(teacherId, courseId) {
     this.sectionService.assignTeacher(this.id, courseId, teacherId)
       .then(function () {
         this.sectionService.getTeachings(this.id).subscribe(
-          t => {this.teachings = t;console.log(t)},
+          t => {this.teachings = t},
           error => this.errorMessage = <any>error
         );
       }.bind(this))
       .catch(function (err) {
         console.log(err);
-      });
+      }.bind(this));
   }
 
   filterCommon(): Course[] {
@@ -90,6 +91,7 @@ export class SectionDetailComponent implements OnInit {
 
   myReset() {
     (<any>document.getElementById("myForm")).reset();
+    this.errorMessage="";
   }
 
 

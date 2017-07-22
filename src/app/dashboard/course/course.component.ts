@@ -20,9 +20,10 @@ export class CourseComponent implements OnInit {
         courses => this.courses = courses,
         error => this.errorMessage = <any>error
       );
+      this.myReset();
     }.bind(this)).catch(function(error){
       this.errorMessage =error.json().message;
-    });
+    }.bind(this));
   }
   ngOnInit() {
     this.courseService.getCourses().subscribe(
@@ -33,5 +34,6 @@ export class CourseComponent implements OnInit {
 
   myReset() {
     (<any>document.getElementById("myForm")).reset();
+    this.errorMessage="";
   }
 }

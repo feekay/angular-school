@@ -17,7 +17,7 @@ export class CampusDetailComponent implements OnInit {
   classes: Class[];
   id: number;
   private sub: any;
-  error: string;
+  errorMessage: string;
   constructor(private route: ActivatedRoute, private campusService: CampusService, private classService: ClassService) { }
 
   ngOnInit() {
@@ -25,12 +25,12 @@ export class CampusDetailComponent implements OnInit {
       this.id = +params['id']; // (+) converts string 'id' to a number
       this.campusService.getCampus(this.id).subscribe(
         campus => this.campus = campus,
-        err => this.error = err
+        err => this.errorMessage = err
       )
 
       this.campusService.getClasses(this.id).subscribe(
         classes => this.classes = classes,
-        err => this.error = err
+        err => this.errorMessage = err
       )
     });
   }
@@ -39,14 +39,16 @@ export class CampusDetailComponent implements OnInit {
     this.campusService.registerClass(this.id, new Class(fee, name)).then(function (c) {
       this.campusService.getClasses(this.id).subscribe(
         classes => this.classes = classes,
-        err => this.error = err
+        err => this.errorMessage = err
       );
+      this.myReset();
     }.bind(this)).catch(function (err) {
-      this.err = err.json().message;
-    })
+      this.errorMessage = err.json().message;
+    }.bind(this));
   }
   myReset() {
     (<any>document.getElementById("myForm")).reset();
+    this.errorMessage="";
   }
   ngOnDestroy() {
     this.sub.unsubscribe();

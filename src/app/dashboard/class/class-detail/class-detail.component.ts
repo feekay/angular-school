@@ -20,7 +20,7 @@ export class ClassDetailComponent implements OnInit {
   availableCourses: Course[];
   id: number;
   private sub: any;
-  error: string;
+  errorMessage: string;
   constructor(private route: ActivatedRoute, private classService: ClassService, private courseService: CourseService) { }
 
 
@@ -33,23 +33,23 @@ export class ClassDetailComponent implements OnInit {
       this.id = +params['id']; // (+) converts string 'id' to a number
       this.classService.getClass(this.id).subscribe(
         cls => this.cls = cls,
-        err => this.error = err
+        err => this.errorMessage = err
       );
       this.classService.getSections(this.id).subscribe(
         sections => this.sections = sections,
-        err => this.error = err
+        err => this.errorMessage = err
       );
       /*
       this.classService.getCourses(this.id).subscribe(
         courses => this.courses = courses,
-        err => this.error = err
+        err => this.errorMessage = err
       );
       */
 
       /*    
       this.courseService.getCourses().subscribe(
         courses => this.availableCourses = courses,
-        err => this.error = err
+        err => this.errorMessage = err
       );
       */
     });
@@ -60,22 +60,23 @@ export class ClassDetailComponent implements OnInit {
     this.classService.addSection(this.id, section).then(function () {
       this.classService.getSections(this.id).subscribe(
         sections => this.sections = sections,
-        err => this.error = err
+        err => this.errorMessage = err
       );
+      this.myReset();
     }.bind(this)).catch(function (err) {
-      this.err = err;
-    });
+      this.errorMessage = err.json().message;
+    }.bind(this));
   }
 
   addCourse(id: number) {
     this.classService.addCourse(this.id, id).then(function () {
       this.classService.getCourses(this.id).subscribe(
         courses => this.courses = courses,
-        err => this.error = err
+        err => this.errorMessage = err
       );
     }.bind(this)).catch(function (err) {
-      this.err = err;
-    });
+      this.errorMessage = err.json().message;
+    }.bind(this));
   }
 
   filterCommon(): Course[] {
@@ -89,6 +90,7 @@ export class ClassDetailComponent implements OnInit {
 
   myReset() {
     (<any>document.getElementById("myForm")).reset();
+    this.errorMessage="";
   }
   ngOnDestroy() {
     this.sub.unsubscribe();

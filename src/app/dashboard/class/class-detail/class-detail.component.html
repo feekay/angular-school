@@ -1,3 +1,4 @@
+ <div class="alert alert-danger" *ngIf="errorMessage"> {{errorMessage}}</div>
 <div class="card mb-3">
   <div class="card-header">
 
@@ -21,11 +22,10 @@
                   <label>Section No.</label>
                   <input #name name="name" type="text" class="form-control" id="fld1" placeholder="Section Number">
                 </div>
-                <button type="button" class="btn btn-success btn-block" data-dismiss="modal" (click)="registerSection(name.value)" >Submit</button>
+                <button type="button" class="btn btn-success btn-block" data-dismiss="modal" (click)="registerSection(name.value)">Submit</button>
               </form>
             </div>
             <div class="modal-footer">
-              {{errorMessage}}
               <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
               <button type="reset" class="btn btn-success btn-default pull-left" (click)="myReset()" value="Reset">Reset</button>
             </div>
@@ -70,13 +70,14 @@
     </div>
   </div>
   <div class="card-block">
-<form class="form-signin" (ngSubmit)="addCourse(selectedCourse.id)">
-  <h4>Add Course</h4>
-  <select name="course" [(ngModel)]="selectedCourse">
+    <h4>Add Course</h4>
+    <form class="form-signin form-inline" (ngSubmit)="addCourse(selectedCourse.id)">
+      
+      <select class="form-control" name="course" [(ngModel)]="selectedCourse">
       <option *ngFor="let c of filterCommon()" [ngValue]="c"> {{c.name}} </option>
     </select>
-  <button class="btn btn-primary btn-default" type="submit">Submit</button>
-</form>
+      <button class="btn btn-primary btn-default" type="submit">Submit</button>
+    </form>
     <div class="table-responsive">
       <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
         <thead>

@@ -38,9 +38,10 @@ export class UsersComponent implements OnInit {
           students => this.students = students,
           error => this.errorMessage = error
         );
+        this.myReset();
       }.bind(this)).catch(function (err) {
         this.errorMessage = err.json().message;
-      })
+      }.bind(this));
   }
   registerTeacher(fname: string, lname: string, uname: string, gender: string, dob: string, password: string) {
     this.teacherService.registerTeacher({ firstname: fname, lastname: lname, username: uname, password: password, gender: gender, dob: dob })
@@ -50,17 +51,19 @@ export class UsersComponent implements OnInit {
           teachers => this.teachers = teachers,
           error => this.errorMessage = error
         );
-
+        this.myReset2();
       }.bind(this)).catch(function (err) {
         this.errorMessage = err.json().message;
-      })
+      }.bind(this));
   }
 
   myReset() {
     (<any>document.getElementById("myForm")).reset();
+    this.errorMessage="";
   }
   myReset2() {
     (<any>document.getElementById("myForm2")).reset();
+    this.errorMessage="";
   }
 
 }

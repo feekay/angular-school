@@ -61,7 +61,7 @@ export class StudentComponent implements OnInit {
       )
     }.bind(this)).catch(function (error) {
       console.log(error);
-    });
+    }.bind(this));
   }
 
   filterClasses() {

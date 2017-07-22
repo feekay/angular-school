@@ -24,13 +24,15 @@ export class CampusesComponent implements OnInit {
       this.campusService.getCampuses().subscribe(
         campuses => this.campuses = campuses,
         error => this.errorMessage = <any>error);
+      this.myReset();
     }.bind(this)).catch(function (err) {
-      this.errorMessage =err.json().message;
-    })
+      this.errorMessage = err.json().message;
+    }.bind(this));
   }
 
   myReset() {
     (<any>document.getElementById("myForm")).reset();
+    this.errorMessage="";
   }
 
 }
