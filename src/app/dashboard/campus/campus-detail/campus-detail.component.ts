@@ -34,16 +34,19 @@ export class CampusDetailComponent implements OnInit {
       )
     });
   }
-  
+
   addClass(name: string, fee: number) {
-    this.campusService.registerClass(this.id,new Class(fee, name)).then(function (c) {
+    this.campusService.registerClass(this.id, new Class(fee, name)).then(function (c) {
       this.campusService.getClasses(this.id).subscribe(
         classes => this.classes = classes,
         err => this.error = err
       );
     }.bind(this)).catch(function (err) {
-      console.log(err);
+      this.err = err.json().message;
     })
+  }
+  myReset() {
+    (<any>document.getElementById("myForm")).reset();
   }
   ngOnDestroy() {
     this.sub.unsubscribe();

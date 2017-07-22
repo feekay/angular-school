@@ -20,6 +20,7 @@ import { CourseService } from "app/services/course.service";
 import { SectionDetailComponent } from "app/dashboard/section-detail/section-detail.component";
 import { HomeComponent } from './home/home.component';
 import { PERMISSIONS } from "app/config/permissions";
+import { LogoutComponent } from './logout/logout.component';
 
 
 const appRoutes: Routes = [
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   // { path: 'register', component: RegisterComponent },
+  { path: 'logout', component: LogoutComponent }, 
   { path: 'student', component: StudentViewComponent, canActivate: [AccessGuard], data: { permissions: [PERMISSIONS.STUDENT] } },
   { path: 'teacher', component: TeacherViewComponent, canActivate: [AccessGuard], data: { permissions: [PERMISSIONS.TEACHER] } },
   { path: 'sections', component: SectionDetailComponent, canActivate: [AccessGuard], data: { permissions: [PERMISSIONS.TEACHER] } },
@@ -41,7 +43,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     PageNotFoundComponent,
     StudentViewComponent,
-    TeacherViewComponent
+    TeacherViewComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

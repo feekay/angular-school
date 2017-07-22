@@ -1,3 +1,31 @@
+<div class="card-block">
+  <div class="table-responsive">
+    <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Teacher</th>
+          <th>Section</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>Teacher</th>
+          <th>Section</th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr *ngFor="let teaching of teachings">
+          <td>
+            {{ teaching.Teacher.User.firstname }}</td>
+          <td><a routerLink="/dashboard/sections/{{teaching.Section.id}}"> {{ teaching.Section.number }}</a>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!--
+
+
 <p>
   Teacher Section
 </p>
@@ -6,4 +34,4 @@
     {{ teaching.Teacher.User.firstname }}<a routerLink="/dashboard/sections/{{teaching.Section.id}}"> {{ teaching.Section.number }}</a>
   </li>
 </ul>
-
+-->

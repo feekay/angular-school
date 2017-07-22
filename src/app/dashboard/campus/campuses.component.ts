@@ -19,14 +19,18 @@ export class CampusesComponent implements OnInit {
       campuses => this.campuses = campuses,
       error => this.errorMessage = <any>error);
   }
-  register(name:string, address:string){    
-    this.campusService.registerCampus(new Campus(name, address)).then(function(res){
-        this.campusService.getCampuses().subscribe(
-          campuses => this.campuses = campuses,
-          error => this.errorMessage = <any>error);
-    }.bind(this)).catch(function(err){
-      console.log(err);      
+  register(name: string, address: string) {
+    this.campusService.registerCampus(new Campus(name, address)).then(function (res) {
+      this.campusService.getCampuses().subscribe(
+        campuses => this.campuses = campuses,
+        error => this.errorMessage = <any>error);
+    }.bind(this)).catch(function (err) {
+      this.errorMessage =err.json().message;
     })
+  }
+
+  myReset() {
+    (<any>document.getElementById("myForm")).reset();
   }
 
 }

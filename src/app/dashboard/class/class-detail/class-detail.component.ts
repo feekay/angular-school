@@ -28,7 +28,7 @@ export class ClassDetailComponent implements OnInit {
   ngOnInit() {
     this.availableCourses = this.route.snapshot.data['allCourses'];
     this.courses = this.route.snapshot.data['courses'];
-  
+
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
       this.classService.getClass(this.id).subscribe(
@@ -63,28 +63,32 @@ export class ClassDetailComponent implements OnInit {
         err => this.error = err
       );
     }.bind(this)).catch(function (err) {
-      console.log(err);
+      this.err = err;
     });
   }
 
   addCourse(id: number) {
     this.classService.addCourse(this.id, id).then(function () {
       this.classService.getCourses(this.id).subscribe(
-        sections => this.sections = sections,
+        courses => this.courses = courses,
         err => this.error = err
       );
     }.bind(this)).catch(function (err) {
-      console.log(err);
+      this.err = err;
     });
   }
 
   filterCommon(): Course[] {
-    let x=this.courses.map(function (course: Course) {
+    let x = this.courses.map(function (course: Course) {
       return course.id;
     });
     return this.availableCourses.filter(function (n) {
       return x.indexOf(n.id) === -1;
     }.bind(this));
+  }
+
+  myReset() {
+    (<any>document.getElementById("myForm")).reset();
   }
   ngOnDestroy() {
     this.sub.unsubscribe();

@@ -20,12 +20,18 @@ export class CourseComponent implements OnInit {
         courses => this.courses = courses,
         error => this.errorMessage = <any>error
       );
-    }.bind(this));
+    }.bind(this)).catch(function(error){
+      this.errorMessage =error.json().message;
+    });
   }
   ngOnInit() {
     this.courseService.getCourses().subscribe(
       courses => this.courses = courses,
       error => this.errorMessage = <any>error
     );
+  }
+
+  myReset() {
+    (<any>document.getElementById("myForm")).reset();
   }
 }

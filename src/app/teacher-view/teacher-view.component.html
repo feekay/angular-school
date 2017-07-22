@@ -1,16 +1,31 @@
 <p>
   {{details.User.firstname}}
 </p>
-<table>
-  <tr>
-    <th>Course</th>
-    <th>Section</th>
-    <th>Timings</th>
-  </tr>
-<tr *ngFor="let course of courses">
-    <td>{{course.Course.name}}</td>
-    <td>{{course.Section.number}}</td>
-    <td>{{course.timing}}</td>
-</tr>
-</table>
 
+<div class="card-block">
+  <div class="table-responsive">
+    <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Section</th>
+          <th>Timing</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>Name</th>
+          <th>Section</th>
+          <th>Timing</th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr *ngFor="let course of courses">
+          <td>{{course.Course.name}}</td>
+          <td>{{course.Section.number}}</td>
+          <td>{{course.timing}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

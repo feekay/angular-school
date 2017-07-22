@@ -18,9 +18,9 @@ import { AuthService } from "app/services/auth.service";
 })
 export class SectionDetailComponent implements OnInit {
 
-  constructor(auth:AuthService,private sectionService: SectionService, private courseService: CourseService, /*private teacherService: TeacherService,*/ private route: ActivatedRoute) {
+  constructor(auth: AuthService, private sectionService: SectionService, private courseService: CourseService, /*private teacherService: TeacherService,*/ private route: ActivatedRoute) {
 
-    this.permission= (auth.getPermission()==="admin");
+    this.permission = (auth.getPermission() === "admin");
   }
 
   errorMessage: string;
@@ -28,18 +28,18 @@ export class SectionDetailComponent implements OnInit {
   courses: Course[];
   activities: Activity[];
   teachings: Teaching[];
-  teachers:Teacher[];
-  selectedTeacher:Teacher;
+  teachers: Teacher[];
+  selectedTeacher: Teacher;
 
-  permission:boolean;
+  permission: boolean;
   id: number;
   private sub: any;
   error: string;
 
   ngOnInit() {
     this.teachings = this.route.snapshot.data['teachings'];
-    this.courses= this.route.snapshot.data['courses'];
-    this.teachers= this.route.snapshot.data['teachers'];
+    this.courses = this.route.snapshot.data['courses'];
+    this.teachers = this.route.snapshot.data['teachers'];
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.sectionService.getSection(this.id).subscribe(
@@ -51,18 +51,24 @@ export class SectionDetailComponent implements OnInit {
         error => this.errorMessage = <any>error);
     });
   }
-  addActivity(date: Date, desc:string) {
+  addActivity(date: Date, desc: string) {
     this.sectionService.registerActivity(this.id, new Activity(date, desc)).then(function (c) {
-      this.sectionService.getActivities(this.id);
+      this.sectionService.getActivities(this.id).subscribe(
+        activities => this.activities = activities,
+        error => this.errorMessage = <any>error);
     }.bind(this)).catch(function (err) {
-      console.log(err);
+      this.errorMessage = err.json().message;
     })
   }
 
   assignTeacher(teacherId, courseId) {
     this.sectionService.assignTeacher(this.id, courseId, teacherId)
       .then(function () {
-      })
+        this.sectionService.getTeachings(this.id).subscribe(
+          t => {this.teachings = t;console.log(t)},
+          error => this.errorMessage = <any>error
+        );
+      }.bind(this))
       .catch(function (err) {
         console.log(err);
       });
@@ -81,6 +87,13 @@ export class SectionDetailComponent implements OnInit {
       return array2.indexOf(n.id) === -1;
     });
   }
+
+  myReset() {
+    (<any>document.getElementById("myForm")).reset();
+  }
+
+
+
   onDestroy() {
     this.sub.unsubscribe();
   }

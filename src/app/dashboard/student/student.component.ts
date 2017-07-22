@@ -32,6 +32,10 @@ export class StudentComponent implements OnInit {
     private sectionService: SectionService,
     private route: ActivatedRoute
   ) {
+    
+  }
+
+  ngOnInit() {
     this.student = this.route.snapshot.data['student'];
     if (this.route.snapshot.data['student'].SectionId) {
       this.section = this.route.snapshot.data['student'].Section;
@@ -48,11 +52,8 @@ export class StudentComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-  }
-
   assignSection(sectionId) {
-    console.log(sectionId);
+    
     this.sectionService.assignStudent(sectionId, this.student.id).then(function () {
       this.sectionService.getSection(sectionId).subscribe(
         (section) => this.section=section,

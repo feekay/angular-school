@@ -21,7 +21,7 @@ export class StudentService {
         this.options = authService.getHeaders();
     }
 
-    registerStudent(student: Student): Promise<any> {
+    registerStudent(student: any): Promise<any> {
         return this.http.post(this.studentUrl, student, this.options)
             .toPromise();
     }

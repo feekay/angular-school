@@ -22,8 +22,8 @@ export class LoginComponent {
       this.router.navigate(['/home']);
       this.error = "";
     }.bind(this)).catch(function (error) {
-      console.log("An error occured ", error);
-      this.error = "Incorrect username or password";
+      console.log("An error occured ", error.json());
+      this.error = error.json().message;
     }.bind(this));
   }
 

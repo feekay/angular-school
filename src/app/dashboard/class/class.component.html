@@ -1,4 +1,30 @@
-Class
+  <div class="card-block">
+    <div class="table-responsive">
+      <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Fee</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Name</th>
+            <th>Fee</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr *ngFor="let class of classes">
+            <td>
+              <a routerLink="{{class.id}}">{{class.name}}</a>
+            </td>
+            <td>{{class.fee}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<!--
 <ul>
 
   <li *ngFor="let class of classes">
@@ -6,3 +32,4 @@ Class
   </li>
 </ul>
 <br>
+-->
